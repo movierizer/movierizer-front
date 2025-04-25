@@ -1,13 +1,16 @@
 import './App.css';
+import React from 'react';
+import { BrowserRouter as Router, Route, Routes} from 'react-router-dom';
+import MovieList from './components/MovieList';
+import NavBar from './components/NavBar';
 
-function App() {
+export default function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <p> Hello world !</p>
-      </header>
-    </div>
+    <Router>
+      <NavBar />
+        <Routes path="/" element={<MovieList />}>
+           <Route path='/movies' element={<MovieList />} />
+        </Routes>
+    </Router>
   );
 }
-
-export default App;
