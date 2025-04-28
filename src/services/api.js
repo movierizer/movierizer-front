@@ -1,6 +1,9 @@
 import axios from 'axios';
 
-const apiBaseUrl = process.env.FRONT_BASE_URL; 
+const apiBaseUrl = process.env.REACT_APP_BASE_URL; 
+if (!apiBaseUrl) {
+    console.error('FRONT_BASE_URL is not defined!');
+}
 const api = axios.create({
     baseURL: apiBaseUrl,
     headers: {
