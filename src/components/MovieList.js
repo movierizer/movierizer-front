@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { movieService } from '../services/api';
 import { Link } from 'react-router-dom';
 
+/* This component is used to display a list of movies*/
 const MovieList = () => {
     const [movies, setMovies] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -11,7 +12,7 @@ const MovieList = () => {
 
         const fetchmovies = async () => {
             try{
-                const response = await movieService.getAll();
+                const response = await movieService.getAll();//get all movies from the database
                 setMovies(response.data);
                 setLoading(false);
             } catch (err) {
