@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { movieService } from '../services/api';
+import MovieForm from "./MovieForm";
 
 const MovieForm = () => {
     const [title, setTitle] = useState([]);
@@ -21,13 +22,14 @@ const MovieForm = () => {
             description,
         };
 
-        //const reponse = await movieService.create(newMovie);
+        const reponse = await movieService.create(newMovie);
        
         console.log('Film ajouté:', newMovie);
 
         setTitle('');
         setDescription('');
         setGrade(0);
+        setMovies([...movies, newMovie]);
     };
 
     return(
