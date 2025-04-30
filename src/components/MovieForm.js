@@ -1,6 +1,7 @@
 import React, { useState} from 'react';
 import { movieService } from '../services/api';
 
+
 const MovieForm = () => {
     const [title, setTitle] = useState([]);
     const [grade, setGrade] = useState([]);
@@ -39,24 +40,33 @@ const MovieForm = () => {
         }
     };
 
-    if (loading) return <div>Loading...</div>
-    if (error) return <div className="alert alert-danger">{error}</div>
+    if (loading) return <div class="spinner-border" role="status">
+                            <span class="visually-hidden">Loading...</span>
+                        </div>
+    if (error) return <div className="alert alert-danger ">
+                        <div className="w-50 h-25 bg-primary text-white">
+                          {error}
+                        </div>
+                      </div>
 
     return(
-      <div>
+      <div class=" position-absolute bottom-50 end-50">
         {error && <div className="error-message">{error}</div>}
         {successMessage && <div className="success-message">{successMessage}</div>}
         <form onSubmit={handleSubmit}>
-          <div>
-              <label htmlFor="title"> Add a movie</label> 
-              <input 
-              type="text" 
-              name="tiltle"
-              value={title}
-              onChange={(e) => setTitle(e.target.value)}
-              required />
+          <div class="mb-3">
+              <label htmlFor="title" class="form-label"> 
+                Add a movie 
+                <input 
+                type="text" 
+                name="tiltle"
+                value={title}
+                onChange={(e) => setTitle(e.target.value)}
+                required 
+                class="form-control border-black"/>
+              </label>
           </div>
-          <div>
+          <div class="mb-3">
             <label>
               grade:
               <input 
@@ -65,10 +75,11 @@ const MovieForm = () => {
               min={0} 
               max={100}
               value={grade}
-              onChange={(e) => setGrade(e.target.value)} />  
+              onChange={(e) => setGrade(e.target.value)} 
+              class="form-control border-black"/>  
             </label>
           </div>
-          <div>
+          <div class="mb-3">
             <label>
               description:
               <input 
@@ -76,12 +87,13 @@ const MovieForm = () => {
               name="description"
               maxLength="500"
               value={description}
-              onChange={(e) => setDescription(e.target.value)} />
+              onChange={(e) => setDescription(e.target.value)} 
+              class="form-control border-black"/>
             </label>
           </div>
-          <input type="submit" value="add" />
+          <input class="btn btn-primary" type="submit" value="add" />
         </form>
-      </div>
+    </div>
     )
 
 }
