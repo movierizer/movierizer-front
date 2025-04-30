@@ -1,6 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
-import MovieForm from "./MovieForm";
+import { Link, NavLink } from "react-router-dom";
 
 /*This component is used to display the navigation bar for the application*/
 export default function NavBar() {
@@ -9,7 +8,7 @@ export default function NavBar() {
     <nav class="navbar navbar-expand-lg bg-body-tertiary" data-bs-theme="dark">
       <div className="container-fluid">
       <span class="navbar-brand mb-0 h1">Movierizer</span>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
         <form class="d-flex me-5" role="search">
@@ -19,19 +18,22 @@ export default function NavBar() {
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav me-5">
             <li class="nav-item me-5">
-              <a class="nav-link active" aria-current="page">Home</a>
+              <Link class="nav-link active" aria-current="page">Home</Link>
             </li>
             <li class="nav-item me-5">
-              <a class="nav-link" href=""><Link to="/movies">MovieList</Link></a>
+              <Link class="nav-link" href=""><NavLink to="/movies">MovieList</NavLink></Link>
+            </li>
+            <li class="nav-item me-5">
+              <Link class="nav-link" href=""><NavLink to="/addmovies">MovieForm</NavLink></Link>
             </li>
             <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              <Link class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                 Lists
-              </a>
+              </Link>
               <ul class="dropdown-menu">
-                <li><a class="dropdown-item" href="">Collection</a></li>
-                <li><a class="dropdown-item" href="">Lists</a></li>
-                <li><a class="dropdown-item" href="">WatchList</a></li>
+                <li><Link class="dropdown-item" href="">Collection</Link></li>
+                <li><Link class="dropdown-item" href="">Lists</Link></li>
+                <li><Link class="dropdown-item" href="">WatchList</Link></li>
               </ul>
             </li>
           </ul>

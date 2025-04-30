@@ -11,14 +11,17 @@ import HomePage from './components/HomePage';
 /*This is the main component of my front you can find the stucture of the app*/
 export default function App() {
   return (
-  <div class="bg-dark text-white min-vh-100">
     <Router>
-      <NavBar />
-        <Routes>
-           <Route exact path="/" element={<HomePage />} />
-           <Route path='/movies' element={<MovieList />} />
-        </Routes>
+      <div class="bg-dark text-white min-vh-100">
+        <NavBar />
+        <div className="content">
+          <Routes>
+            <Route exact path="/" element={<HomePage />}></Route>
+            <Route exact path="/addmovies" element={<MovieForm />}></Route>
+            <Route exact path="/movies" element={< MovieList />}></Route>
+          </Routes>
+        </div>
+      </div>
     </Router>
-  </div>
   );
 }
