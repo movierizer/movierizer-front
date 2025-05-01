@@ -18,7 +18,7 @@ export default function NavBar() {
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav me-5">
             <li class="nav-item me-5">
-              <Link class="nav-link active" aria-current="page">Home</Link>
+              <Link class="nav-link active" aria-current="page"><NavLink to="/">Home</NavLink></Link>
             </li>
             <li class="nav-item me-5">
               <Link class="nav-link" href=""><NavLink to="/movies">MovieList</NavLink></Link>
