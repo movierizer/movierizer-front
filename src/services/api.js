@@ -18,6 +18,7 @@ export const movieService = {
     getById: (id) => api.get(`/movies/ ${id}`),
     create: (data) => api.post('/movies', data),
     update: (id, data) => api.put(`/movies/ ${id} `, data),
-    delete: (id) => api.delete(`/movies/ ${id} `)
+    delete: (id) => api.delete(`/movies/ ${id} `),
+    search: (query) => api.get(`/movies?query=${query}`),
 };
 export default api;

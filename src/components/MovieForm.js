@@ -1,5 +1,6 @@
 import React, { useState} from 'react';
 import { movieService } from '../services/api';
+import Error from './Error';
 
 
 const MovieForm = () => {
@@ -40,14 +41,10 @@ const MovieForm = () => {
         }
     };
 
-    if (loading) return <div class="spinner-border" role="status">
-                            <span class="visually-hidden">Loading...</span>
+    if (loading) return <div className="spinner-border" role="status">
+                            <span className="visually-hidden">Loading...</span>
                         </div>
-    if (error) return <div className="alert alert-danger ">
-                        <div className="w-50 h-25 bg-primary text-white">
-                          {error}
-                        </div>
-                      </div>
+    if (error) return <div><Error error={error} /></div>
 
     return(
       <div className="container">
