@@ -6,6 +6,7 @@ import NavBar from './components/NavBar';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import MovieForm from './components/MovieForm';
 import HomePage from './components/HomePage';
+import MoviePage from './components/MoviePage';
 
 
 /*This is the main component of my front you can find the stucture of the app*/
@@ -19,6 +20,7 @@ export default function App() {
             <Route exact path="/" element={<HomePage />}></Route>
             <Route exact path="/addmovies" element={<MovieForm />}></Route>
             <Route exact path="/movies" element={< MovieList />}></Route>
+            <Route exact path="/movies/:id" element={< MoviePage />}></Route>
           </Routes>
         </div>
       </div>
