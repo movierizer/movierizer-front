@@ -13,7 +13,7 @@ import MoviePage from './components/MoviePage';
 export default function App() {
   return (
     <Router>
-      <div class="bg-dark text-white min-vh-100">
+      <div className="bg-dark text-white min-vh-100">
         <NavBar />
         <div className="content">
           <Routes>

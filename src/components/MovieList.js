@@ -36,24 +36,26 @@ const MovieList = () => {
                     <p>No movies found</p>
                 ) : (
                     movies.map(movie => (
-                        <div class="row row-cols-1 row-cols-md-1 g-4">
-                            <div class="col">
-                                <div className="col-md-4 mb-3" key={movie.id}>
-                                    <div className="card border-secondary mb-3" style={{ width: '18rem' }}>
-                                        <div class="card-body">
-                                            <h5 className="card-title">{movie.title}</h5>
-                                            <p className="card-text">{movie.description}</p>
-                                            <p className="card-text">
-                                                <strong>Grade: {movie.grade}</strong>
-                                            </p>
-                                            <Link to={`/movies/${movie.id}`} className="btn btn-info mr-2">
-                                                View Details
-                                            </Link>
+                        <li key={movie.id}>
+                            <div className="row row-cols-1 row-cols-md-1 g-4">
+                                <div className="col">
+                                    <div className="col-md-4 mb-3" key={movie.id}>
+                                        <div className="card border-secondary mb-3" style={{ width: '18rem' }}>
+                                            <div className="card-body">
+                                                <h5 className="card-title">{movie.title}</h5>
+                                                <p className="card-text">{movie.description}</p>
+                                                <p className="card-text">
+                                                    <strong>Grade: {movie.grade}</strong>
+                                                </p>
+                                                <Link to={`/movies/${movie.id}`} className="btn btn-info mr-2">
+                                                    View Details
+                                                </Link>
+                                            </div>
                                         </div>
-                                    </div>
-                                </div>   
+                                    </div>   
+                                </div>
                             </div>
-                        </div>
+                        </li>
                     ))
                 )}
             </div>

@@ -2,7 +2,7 @@ import axios from 'axios';
 /*This is a sevice for the api to link the method with his road and the url */
 const apiBaseUrl = process.env.REACT_APP_BASE_URL; 
 if (!apiBaseUrl) {
-    console.error('FRONT_BASE_URL is not defined!');
+    console.error('REACT_APP_BASE_URL is not defined!');
 }
 /*Set the request headers*/
 const api = axios.create({

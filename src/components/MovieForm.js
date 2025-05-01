@@ -50,12 +50,13 @@ const MovieForm = () => {
                       </div>
 
     return(
-      <div class=" position-absolute bottom-50 end-50">
+      <div className="container">
+        <div className="row justify-content-center">
         {error && <div className="error-message">{error}</div>}
         {successMessage && <div className="success-message">{successMessage}</div>}
         <form onSubmit={handleSubmit}>
-          <div class="mb-3">
-              <label htmlFor="title" class="form-label"> 
+          <div className="mb-3">
+              <label htmlFor="title" className="form-label"> 
                 Add a movie 
                 <input 
                 type="text" 
@@ -63,10 +64,10 @@ const MovieForm = () => {
                 value={title}
                 onChange={(e) => setTitle(e.target.value)}
                 required 
-                class="form-control border-black"/>
+                className="form-control border-black"/>
               </label>
           </div>
-          <div class="mb-3">
+          <div className="mb-3">
             <label>
               grade:
               <input 
@@ -76,10 +77,10 @@ const MovieForm = () => {
               max={100}
               value={grade}
               onChange={(e) => setGrade(e.target.value)} 
-              class="form-control border-black"/>  
+              className="form-control border-black"/>  
             </label>
           </div>
-          <div class="mb-3">
+          <div className="mb-3">
             <label>
               description:
               <input 
@@ -88,11 +89,12 @@ const MovieForm = () => {
               maxLength="500"
               value={description}
               onChange={(e) => setDescription(e.target.value)} 
-              class="form-control border-black"/>
+              className="form-control border-black"/>
             </label>
           </div>
-          <input class="btn btn-primary" type="submit" value="add" />
+          <input className="btn btn-primary" type="submit" value="add" />
         </form>
+        </div>
     </div>
     )
 
