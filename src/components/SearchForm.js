@@ -85,7 +85,7 @@ export default function SearchForm (){
                                     <div className="card mb-0" style={{maxWidth: '540px'}}>
                                         <div className="row g-0 text-white bg-dark"> 
                                         <div className="col-md-4">
-                                            <img src="..." className="img-fluid rounded-start" alt="..."/>
+                                            <img src={`https://image.tmdb.org/t/p/w92${movie.poster_path}`} className="img-fluid rounded-start" alt="..."/>
                                         </div>
                                         <div className="col-md-8">
                                         <div className="card-body">

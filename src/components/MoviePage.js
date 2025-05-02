@@ -7,6 +7,7 @@ export default function MoviePage() {
     const [movie, setMovie] = useState(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
+    const [posterUrl, setPosterUrl] = useState(null);
 
     const {id} = useParams();
     useEffect(() => {
@@ -16,6 +17,7 @@ export default function MoviePage() {
                 const response = await movieService.getById(id);//get the movie
                 console.log(response.data);
                 setMovie(response.data);
+                setPosterUrl(`https://image.tmdb.org/t/p/w342${response.data.poster_path}`);
                 setLoading(false);
             } catch (err) {
                 setError('Failed to fetch movies');
@@ -44,7 +46,7 @@ export default function MoviePage() {
                 ) : (
                     <div className="bg-secondary text-white d-flex align-items-center justify-content-center rounded-start"
                         style={{ width: '100%', height: '300px' }}>
-                    No Image
+                    <img src={posterUrl} className="img-fluid" alt={`${movie.title} poster`}/>
                     </div>
                 )}
                 </div>
