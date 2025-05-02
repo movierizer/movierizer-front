@@ -1,13 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import Error from './Error';
 import { movieService } from '../services/api';
+import { NavLink } from 'react-router-dom';
+import { useRef } from 'react';
 
 export default function SearchForm (){
-    const [query, setQuery] = useState(null);
+    const [query, setQuery] = useState('');
     const [result, setResult] = useState([]);
     const [error, setError] = useState(null);
+    const [showResults, setShowResults] = useState(false);
+    const wrapperRef = useRef(null); //useRef is use to make reference to HTML elements and 
 
-    const handleSubmit = async (e) => {
+    const handleSearch = async (e) => {
         e.preventDefault();
         setError(null);
 
@@ -15,9 +19,10 @@ export default function SearchForm (){
             const reponse = await movieService.search(query);
             //if query empty then the reponse is the list of the movie in the database
             setResult(reponse.data);
-            setQuery('');
             setTimeout(() => {
-                if(reponse.data.results.length === 0) setError("No movie found");
+                if(query === ''){
+                    if(reponse.data.results.length === 0) setError("No movie found");
+                }
             }, 2000);
         } catch (err){
             setError("No movie found");
@@ -26,39 +31,80 @@ export default function SearchForm (){
         }
     }
 
-    if (error) return <div><Error error={error} /></div> //trouvé une autre manière d'afficher l'erreur
+    //this useEffect is use to show the result of the search when we have results
+    useEffect(() => {
+        if (result && result.total_results > 0) {
+          setShowResults(true);
+        }
+      }, [result]);
+
+    //function to close the result of the search when we clicked outside of the page
+    useEffect(() => {
+        const handleClickOutside = (event) => {
+          if (wrapperRef.current && !wrapperRef.current.contains(event.target)) {
+            setShowResults(false);
+            setQuery('');
+          }
+        };
+    
+        document.addEventListener('mousedown', handleClickOutside);
+        return () => document.removeEventListener('mousedown', handleClickOutside);
+    }, []);
+
+    //this function is call when you click on a movie in the result
+    const handleResultClick = () => {
+        setShowResults(false);
+        setQuery(''); 
+        setError(null);
+    };
+    
+
+    if (error) return <div><Error error={error} /></div> //find a other way to print the error
 
     return(
         <div>
-            <div className="position-relative d-inline-block"> 
-                <form className="d-flex me-5" role="search" onSubmit={handleSubmit}>
+            <div className="position-relative d-block" style={{Width: '7000px'}}> 
+                <form className="d-flex me-5" role="search" onSubmit={handleSearch}>
                     <input 
                     className="form-control me-2" 
                     type="search" 
                     placeholder="Search" 
                     aria-label="Search" 
+                    value={query}
                     onChange={(e) => setQuery(e.target.value)}
                     required/>
                     <button className="btn btn-outline-success" type="submit">Search</button>
                 </form>
-                {result.total_results > 0 && (
-                    <div className=" dropdown position-absolute top-100 start-0 w-100 bg-white border rounded mt-1 z-3"> {/** mettre en position relative */}
-                        <span>
-                            <div className="card mb-1" style={{maxWidth: '540px'}}>
-                                <div className="row g-0 text-black bg-white"> 
-                                <div className="col-md-4">
-                                    <img src="..." className="img-fluid rounded-start" alt="..."/>
-                                </div>
-                                <div className="col-md-8">
-                                <div className="card-body">
-                                    <h5 className="card-title">Card title</h5>
-                                    <p className="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                                    <p className="card-text"><small className="text-body-secondary">Last updated 3 mins ago</small></p>
-                                </div>
-                                </div>
-                                </div>
-                            </div>
-                        </span>
+                {showResults &&result.total_results > 0 && (
+                    <div ref={wrapperRef}
+                    className="position-absolute top-100 start-0 bg-dark border rounded shadow z-3"
+                    style={{ maxHeight: '300px', maxWidth: '700px', overflowY: 'auto' }}>
+                        {result.results.map(movie => (     
+                            <li key={movie.id}> {/*see to delete the margin between cards */}
+                                <span>
+                                    <div className="card mb-0" style={{maxWidth: '540px'}}>
+                                        <div className="row g-0 text-white bg-dark"> 
+                                        <div className="col-md-4">
+                                            <img src="..." className="img-fluid rounded-start" alt="..."/>
+                                        </div>
+                                        <div className="col-md-8">
+                                        <div className="card-body">
+                                            <NavLink to={`/movies/${movie.id}`} 
+                                            className="card-title nav-link-active no-underline" 
+                                            onClick={handleResultClick}>
+                                                <div className="fw-bold no-underline">
+                                                    {movie.title}
+                                                </div>
+                                            </NavLink>  {/*see to delete the underline in the title*/}
+                                            <p className="card-text">{movie.overview}</p> {/* see to make a little synopsis in 1 sentence */}
+                                            <p className="card-text"><small className="text-white bg-dark">{movie.release_date}</small></p>
+                                        </div>
+                                        </div>
+                                        </div>
+                                    </div>
+                                </span>
+                            </li> 
+                        ))}
                     </div>
                 )} 
             </div>  
