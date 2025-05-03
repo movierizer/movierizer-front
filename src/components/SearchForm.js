@@ -63,7 +63,7 @@ export default function SearchForm (){
 
     return(
         <div>
-            <div className="position-relative d-block" style={{Width: '7000px'}}> 
+            <div className="position-relative d-block" style={{Width: '700px'}}> 
                 <form className="d-flex me-5" role="search" onSubmit={handleSearch}>
                     <input 
                     className="form-control me-2" 
@@ -78,25 +78,29 @@ export default function SearchForm (){
                 {showResults &&result.total_results > 0 && (
                     <div ref={wrapperRef}
                     className="position-absolute top-100 start-0 bg-dark border rounded shadow z-3"
-                    style={{ maxHeight: '300px', maxWidth: '700px', overflowY: 'auto' }}>
+                    style={{ maxHeight: '300px', width: '700px', overflowY: 'auto', zIndex: 10 }}>
                         {result.results.map(movie => (     
-                            <li key={movie.id}> {/*see to delete the margin between cards */}
+                            <li key={movie.id} className="list-unstyled m-0 p-0"> 
                                 <span>
-                                    <div className="card mb-0" style={{maxWidth: '540px'}}>
+                                    <div className="card mb-0" style={{ width: '700px'}}>
                                         <div className="row g-0 text-white bg-dark"> 
-                                        <div className="col-md-4">
-                                            <img src={`https://image.tmdb.org/t/p/w92${movie.poster_path}`} className="img-fluid rounded-start" alt="..."/>
+                                        <div className="col-md-2">
+                                            <img src={`https://image.tmdb.org/t/p/w92${movie.poster_path}`} className="img-fluid rounded-start" alt=""/> {/* add a picture for no movie found */}
                                         </div>
-                                        <div className="col-md-8">
+                                        <div className="col-md-10">
                                         <div className="card-body">
                                             <NavLink to={`/movies/${movie.id}`} 
-                                            className="card-title nav-link-active no-underline" 
+                                            className="card-title nav-link-active text-decoration-none" 
                                             onClick={handleResultClick}>
-                                                <div className="fw-bold no-underline">
+                                                <div className="fw-bold">
                                                     {movie.title}
                                                 </div>
-                                            </NavLink>  {/*see to delete the underline in the title*/}
-                                            <p className="card-text">{movie.overview}</p> {/* see to make a little synopsis in 1 sentence */}
+                                            </NavLink>  
+                                            <p className="card-text">
+                                                {movie.overview.length > 150
+                                                ? movie.overview.substring(0, 150) + "..."
+                                                : movie.overview}
+                                            </p>
                                             <p className="card-text"><small className="text-white bg-dark">{movie.release_date}</small></p>
                                         </div>
                                         </div>
