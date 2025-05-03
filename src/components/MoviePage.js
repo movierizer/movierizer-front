@@ -8,6 +8,7 @@ export default function MoviePage() {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     const [posterUrl, setPosterUrl] = useState(null);
+    const [backdropUrl, setBackdropUrl] = useState(null);
 
     const {id} = useParams();
     useEffect(() => {
@@ -18,6 +19,7 @@ export default function MoviePage() {
                 console.log(response.data);
                 setMovie(response.data);
                 setPosterUrl(`https://image.tmdb.org/t/p/w342${response.data.poster_path}`);
+                setBackdropUrl(`https://image.tmdb.org/t/p/w1280${response.data.backdrop_path}`);
                 setLoading(false);
             } catch (err) {
                 setError('Failed to fetch movies');
@@ -32,39 +34,55 @@ export default function MoviePage() {
     if (error) return   <div><Error error={error} /></div>
 
     return (
-        <div className="container mt-5">
-            <div className="card shadow-lg p-3 mb-5 bg-white rounded">
+        <div className="container-fluid mt-5 position-relative p-0">
+            {movie.backdrop_path && (
+                    <img
+                    src={backdropUrl}
+                    className="img-fluid"
+                    alt={`${movie.title} backdrop`}
+                    style={{ height: '800px', width: '1280px', objectFit: 'cover' }}
+                    />
+                )}
             <div className="row g-0">
                 <div className="col-md-4 d-flex align-items-center justify-content-center">
-                {/* Affiche l'image si elle est disponible */}
-                {movie.posterPath ? (
-                    <img
-                    src={movie.posterPath}
-                    className="img-fluid rounded-start"
-                    alt={`${movie.title} poster`}
-                    />
-                ) : (
-                    <div className="bg-secondary text-white d-flex align-items-center justify-content-center rounded-start"
-                        style={{ width: '100%', height: '300px' }}>
-                    <img src={posterUrl} className="img-fluid" alt={`${movie.title} poster`}/>
+                    {movie.posterPath ? (
+                        <img
+                        src={movie.posterPath}
+                        className="img-fluid rounded-start"
+                        alt={`${movie.title} poster`}
+                        />
+                    ) : (
+                        <div className="bg-secondary text-white d-flex align-items-center justify-content-center rounded-start"
+                            style={{ width: '100%', height: '300px' }}>
+                            <img src={posterUrl} className="img-fluid z-3" alt={`${movie.title} poster`}/>
+                        </div>
+                    )}
+                </div>
+                <div className="container mt-5 pt-5">
+                    <div className="card p-4 shadow">
+                        <h2 className="card-title">{movie.title}</h2>
+                        <h6 className="card-subtitle text-muted">{movie.original_title}</h6>
+                        <p className="card-text mt-3">{movie.overview}</p>
+
+                        <ul className="list-group list-group-flush mt-4">
+                            <li className="list-group-item">
+                            <strong>Grade:</strong> {movie.grade ?? 'N/A'}
+                            </li>
+                            <li className="list-group-item">
+                            <strong>Release Date:</strong> {movie.release_date}
+                            </li>
+                            <li className="list-group-item">
+                            <strong>Runtime:</strong> {movie.runtime} minutes
+                            </li>
+                            <li className="list-group-item">
+                            <strong>Budget:</strong> ${movie.budget?.toLocaleString() ?? 'N/A'}
+                            </li>
+                            <li className="list-group-item">
+                            <strong>Revenue:</strong> ${movie.revenue?.toLocaleString() ?? 'N/A'}
+                            </li>
+                        </ul>
                     </div>
-                )}
                 </div>
-                <div className="col-md-8">
-                <div className="card-body">
-                    <h2 className="card-title">{movie.title}</h2>
-                    <h6 className="card-subtitle mb-2 text-muted">{movie.original_title}</h6>
-                    <p className="card-text mt-3">{movie.overview}</p>
-                    <ul className="list-group list-group-flush mt-4">
-                    <li className="list-group-item"><strong>Grade:</strong> {movie.grade}</li>
-                    <li className="list-group-item"><strong>Release Date:</strong> {movie.release_date}</li>
-                    <li className="list-group-item"><strong>Runtime:</strong> {movie.runtime} minutes</li>
-                    <li className="list-group-item"><strong>Budget:</strong> ${movie.budget.toLocaleString()}</li>
-                    <li className="list-group-item"><strong>Revenue:</strong> ${movie.revenue.toLocaleString()}</li>
-                    </ul>
-                </div>
-                </div>
-            </div>
             </div>
         </div>
     );
