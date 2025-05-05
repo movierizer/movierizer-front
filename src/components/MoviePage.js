@@ -34,54 +34,69 @@ export default function MoviePage() {
     if (error) return   <div><Error error={error} /></div>
 
     return (
-        <div className="container-fluid mt-5 position-relative p-0">
-            {movie.backdrop_path && (
-                    <img
-                    src={backdropUrl}
-                    className="img-fluid"
-                    alt={`${movie.title} backdrop`}
-                    style={{ height: '800px', width: '1280px', objectFit: 'cover' }}
-                    />
-                )}
-            <div className="row g-0">
-                <div className="col-md-4 d-flex align-items-center justify-content-center">
-                    {movie.posterPath ? (
-                        <img
-                        src={movie.posterPath}
-                        className="img-fluid rounded-start"
-                        alt={`${movie.title} poster`}
-                        />
-                    ) : (
-                        <div className="bg-secondary text-white d-flex align-items-center justify-content-center rounded-start"
-                            style={{ width: '100%', height: '300px' }}>
-                            <img src={posterUrl} className="img-fluid z-3" alt={`${movie.title} poster`}/>
-                        </div>
-                    )}
-                </div>
-                <div className="container mt-5 pt-5">
-                    <div className="card p-4 shadow">
-                        <h2 className="card-title">{movie.title}</h2>
-                        <h6 className="card-subtitle text-muted">{movie.original_title}</h6>
-                        <p className="card-text mt-3">{movie.overview}</p>
+        <div className="container " style={{ Width: '1296px' }}>
+            {/* Background image section */}
+            <div
+            className="position-relative mx-auto d-block text-center shadow"
+            style={{
+            backgroundImage: backdropUrl ? `url(${backdropUrl})` : '',
+            backgroundSize: 'cover',
+            backgroundPosition: 'center',
+            minHeight: '450px',
+            height: '400px',
+            width: '1296px'
+            }}
+            ></div>
+            <div className="d-flex bg-dark bg-opacity-75 rounded p-4 text-white" style ={{ Width: '1296px' }}>
+                {/* Movie Poster */}
+                <img
+                    src= {posterUrl} 
+                    alt="Léon Poster"
+                    className="img-fluid me-4 rounded"
+                    style={{ width: '300px', height: '500px', objectFit: 'cover' }}
+                />
 
-                        <ul className="list-group list-group-flush mt-4">
-                            <li className="list-group-item">
-                            <strong>Grade:</strong> {movie.grade ?? 'N/A'}
-                            </li>
-                            <li className="list-group-item">
-                            <strong>Release Date:</strong> {movie.release_date}
-                            </li>
-                            <li className="list-group-item">
-                            <strong>Runtime:</strong> {movie.runtime} minutes
-                            </li>
-                            <li className="list-group-item">
-                            <strong>Budget:</strong> ${movie.budget?.toLocaleString() ?? 'N/A'}
-                            </li>
-                            <li className="list-group-item">
-                            <strong>Revenue:</strong> ${movie.revenue?.toLocaleString() ?? 'N/A'}
-                            </li>
-                        </ul>
+                {/* Movie Info */}
+                <div className="flex-grow-1">
+                    <h2>{movie.title}</h2>
+                    <p className="mb-10">{movie.release_date}</p>
+
+                    <div className="d-flex justify-content-between mb-10" style={{ height: '100px', marginBottom: '15px' }}>
+                        <div className="bg-secondary rounded text-center px-3 py-2" style={{ width: '150px' }}>
+                            <h3>Durée</h3>
+                            <div>{movie.runtime}</div>
+                        </div>
+                        <div className="bg-secondary rounded text-center px-3 py-2" style={{ width: '150px' }}>
+                            <h3>Status</h3>
+                            <div>
+                                <span className="badge bg-success">watched</span>
+                            </div>
+                        </div>
+                        <div className="bg-secondary rounded text-center py-2" style={{ width: '150px' }}>
+                            <h3>popularity</h3>
+                            <div>9.5</div>
+                        </div>
                     </div>
+
+                    {/* Tags */}
+                    <div style={{ marginBottom: '50px' }}>
+                        {['drame', 'action', 'crime', 'glasses'].map((tag) => (
+                            <span key={tag} className="badge bg-light text-dark me-2">
+                            {tag}
+                            </span>
+                        ))}
+                    </div>
+
+                    {/* Add to Watchlist */}
+                    <div className="d-flex align-items-center mb-3" style={{ width: '300px' }}>
+                        <input type="text" className="form-control me-2" placeholder="Add" />
+                        <button className="btn btn-outline-light">WatchList</button>
+                    </div>
+
+                    {/* Description */}
+                    <p>
+                    {movie.overview}
+                    </p>
                 </div>
             </div>
         </div>
