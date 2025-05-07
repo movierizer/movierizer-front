@@ -51,7 +51,7 @@ export default function MoviePage() {
                 {/* Movie Poster */}
                 <img
                     src= {posterUrl} 
-                    alt=" ${movie.title}Poster"
+                    alt={`${movie.title} Poster`}
                     className="img-fluid me-4 rounded"
                     style={{ width: '300px', height: '500px', objectFit: 'cover' }}
                 />
