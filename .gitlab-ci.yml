@@ -1,0 +1,34 @@
+stages:
+  - build
+  - package
+
+cache:
+  key: ${CI_COMMIT_REF_SLUG}
+  paths:
+    - node_modules/
+
+#{build stage to compile the back}
+build:
+  image: node:20-slim
+  stage: build
+  script: 
+    - npm install
+    - npm run build
+  artifacts:
+    paths:
+      - build
+
+#{package stage to build the docker image}
+package:
+  image: 
+    name: gcr.io/kaniko-project/executor:debug
+    entrypoint: [""]
+  stage: package
+  before_script:
+    - mkdir -p /kaniko/.docker
+    - cp $DOCKER_AUTH_CONFIG /kaniko/.docker/config.json
+  script: 
+     - /kaniko/executor 
+        --context "${CI_PROJECT_DIR}" 
+        --dockerfile Dockerfile 
+        --destination "s0nren/movierizer-front:${FRONT_VERSION}" 

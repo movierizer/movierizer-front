@@ -25,7 +25,7 @@ const MovieForm = () => {
         };
         
         try{
-          const reponse = await movieService.create(newMovie);
+          await movieService.create(newMovie);
           setLoading(false);
           console.log('Movie added :', newMovie);
           setSuccessMessage(newMovie.title + ' added successfully');
