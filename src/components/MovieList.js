@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { movieService } from '../services/api';
 import { Link } from 'react-router-dom';
 import Error from './Error';
+import log from 'loglevel';
+
 
 /* This component is used to display a list of movies*/
 const MovieList = () => {
@@ -19,7 +21,7 @@ const MovieList = () => {
             } catch (err) {
                 setError('Failed to fetch movies');
                 setLoading(false);
-                console.log(err); //TODO add loger here
+                log.error(err);
             }
         };
         fetchmovies();

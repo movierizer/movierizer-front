@@ -1,6 +1,7 @@
 import React, { useState} from 'react';
 import { movieService } from '../services/api';
 import Error from './Error';
+import log from 'loglevel';
 
 /* This component is used to add a movie with a form */
 const MovieForm = () => {
@@ -37,7 +38,7 @@ const MovieForm = () => {
         } catch (err){
           setError("Failed to add movie");
           setLoading(false);
-          console.log(err); //TODO add loger here
+          log.error(err);
         }
     };
 

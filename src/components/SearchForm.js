@@ -3,6 +3,7 @@ import Error from './Error';
 import { movieService } from '../services/api';
 import { NavLink } from 'react-router-dom';
 import { useRef } from 'react';
+import log from 'loglevel';
 
 export default function SearchForm (){
     const [query, setQuery] = useState('');
@@ -27,7 +28,7 @@ export default function SearchForm (){
         } catch (err){
             setError("No movie found");
             setResult([]);
-            console.log(err); //TODO add loger here
+            log.error(err); 
         }
     }
 

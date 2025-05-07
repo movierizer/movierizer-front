@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { movieService } from '../services/api';
 import Error from './Error';
+import log from 'loglevel';
+
 
 export default function MoviePage() {
     const [movie, setMovie] = useState(null);
@@ -16,7 +18,7 @@ export default function MoviePage() {
         const fetchmovies = async () => {
             try{
                 const response = await movieService.getById(id);//get the movie from the database or the API (SELECT * FROM movies WHERE id = id)
-                console.log(response.data); //TODO add loger here
+                log.info(response.data); 
                 setMovie(response.data);
                 setPosterUrl(`${process.env.REACT_APP_TMDB_POSTER_URL}w342${response.data.poster_path}`); //this is a path to the movie poster with the size w342 (the size can be changed)
                 setBackdropUrl(`${process.env.REACT_APP_TMDB_BACKDROP_URL}w1280${response.data.backdrop_path}`); //this is a path to the movie backdrop with the size w1280 (the size can be changed)
@@ -24,7 +26,7 @@ export default function MoviePage() {
             } catch (err) {
                 setError('Failed to fetch movies');
                 setLoading(false);
-                console.log(err); //TODO add loger here
+                lo.error(err); 
             }
         };
         fetchmovies();

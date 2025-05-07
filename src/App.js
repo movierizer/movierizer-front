@@ -7,7 +7,10 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import MovieForm from './components/MovieForm';
 import HomePage from './components/HomePage';
 import MoviePage from './components/MoviePage';
+import log from 'loglevel';
 
+
+log.setLevel(process.env.NODE_ENV === 'development' ? 'debug' : 'warn');
 
 /*This is the main component of my front you can find the stucture of the app*/
 export default function App() {
