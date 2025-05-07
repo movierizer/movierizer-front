@@ -1,3 +1,4 @@
+/** This component is used to display the home page of the application where is associated with the url "/" */
 const HomePage = () => {
     return (
         <div>

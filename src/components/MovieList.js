@@ -13,13 +13,13 @@ const MovieList = () => {
 
         const fetchmovies = async () => {
             try{
-                const response = await movieService.getAll();//get all movies from the database
+                const response = await movieService.getAll();//get all movies from the database (SELECT * FROM movies)
                 setMovies(response.data);
                 setLoading(false);
             } catch (err) {
                 setError('Failed to fetch movies');
                 setLoading(false);
-                console.log(err);
+                console.log(err); //TODO add loger here
             }
         };
         fetchmovies();
@@ -28,6 +28,7 @@ const MovieList = () => {
     if (loading) return <div>Loading...</div>
     if (error) return   <div><Error error={error} /></div>
   
+    //TODO improve the design of the movie list
     return(
         <div className="container mt-4 position-absolute top-30 start-0  pe-5">
             <h2>Movie List</h2>
@@ -47,7 +48,7 @@ const MovieList = () => {
                                                 <p className="card-text">
                                                     <strong>Grade: {movie.grade}</strong>
                                                 </p>
-                                                <Link to={`/movies/${movie.id}`} className="btn btn-info mr-2">
+                                                <Link to={`/movies/${movie.id}`} className="btn btn-info mr-2"> {/* Link to the movie details page */}
                                                     View Details
                                                 </Link>
                                             </div>

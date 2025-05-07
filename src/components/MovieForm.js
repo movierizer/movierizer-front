@@ -2,7 +2,7 @@ import React, { useState} from 'react';
 import { movieService } from '../services/api';
 import Error from './Error';
 
-
+/* This component is used to add a movie with a form */
 const MovieForm = () => {
     const [title, setTitle] = useState([]);
     const [grade, setGrade] = useState([]);
@@ -26,18 +26,18 @@ const MovieForm = () => {
         };
         
         try{
-          await movieService.create(newMovie);
+          await movieService.create(newMovie); //call the API to add the movie
           setLoading(false);
-          console.log('Movie added :', newMovie);
           setSuccessMessage(newMovie.title + ' added successfully');
+          //reset the form
           setTitle('');
           setDescription('');
           setGrade(0);
-          setTimeout(() => {setSuccessMessage(null);}, 3000); 
+          setTimeout(() => {setSuccessMessage(null);}, 3000); // here you can change the time of the success message 
         } catch (err){
           setError("Failed to add movie");
           setLoading(false);
-          console.log(err);
+          console.log(err); //TODO add loger here
         }
     };
 
@@ -83,7 +83,7 @@ const MovieForm = () => {
               <input 
               type="text" 
               name="description"
-              maxLength="500"
+              maxLength="500" 
               value={description}
               onChange={(e) => setDescription(e.target.value)} 
               className="form-control border-black"/>

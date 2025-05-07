@@ -9,15 +9,15 @@ export default function SearchForm (){
     const [result, setResult] = useState([]);
     const [error, setError] = useState(null);
     const [showResults, setShowResults] = useState(false);
-    const wrapperRef = useRef(null); //useRef is use to make reference to HTML elements and 
+    const wrapperRef = useRef(null); //useRef is use to make reference to HTML elements  
 
+    /* This is a component to search some movies with a call to TMDB API */
     const handleSearch = async (e) => {
         e.preventDefault();
         setError(null);
 
         try{
             const reponse = await movieService.search(query);
-            //if query empty then the reponse is the list of the movie in the database
             setResult(reponse.data);
             setTimeout(() => {
                 if(query === ''){
@@ -27,7 +27,7 @@ export default function SearchForm (){
         } catch (err){
             setError("No movie found");
             setResult([]);
-            console.log(err);
+            console.log(err); //TODO add loger here
         }
     }
 
@@ -79,29 +79,32 @@ export default function SearchForm (){
                     <div ref={wrapperRef}
                     className="position-absolute top-100 start-0 bg-dark border rounded shadow z-3"
                     style={{ maxHeight: '300px', width: '700px', overflowY: 'auto', zIndex: 10 }}>
+                        {/* This is the list of movie result of the call to the API */}
                         {result.results.map(movie => (     
                             <li key={movie.id} className="list-unstyled m-0 p-0"> 
                                 <span>
                                     <div className="card mb-0" style={{ width: '700px'}}>
                                         <div className="row g-0 text-white bg-dark"> 
                                         <div className="col-md-2">
-                                            <img src={`https://image.tmdb.org/t/p/w92${movie.poster_path}`} className="img-fluid rounded-start" alt=""/> {/* add a picture for no movie found */}
+                                            {/* TODO add a picture for no movie found */}
+                                            {/* TODO make the poster clickable to go to the movie page */}
+                                            <img src={`${process.env.REACT_APP_TMDB_POSTER_URL}w92${movie.poster_path}`} className="img-fluid rounded-start" alt=""/> 
                                         </div>
                                         <div className="col-md-10">
                                         <div className="card-body">
                                             <NavLink to={`/movies/${movie.id}`} 
                                             className="card-title nav-link-active text-decoration-none" 
-                                            onClick={handleResultClick}>
+                                            onClick={handleResultClick}> {/* If you click on a movie in the result it will go to the movie page */}
                                                 <div className="fw-bold">
                                                     {movie.title}
                                                 </div>
                                             </NavLink>  
-                                            <p className="card-text">
+                                            <p className="card-text">{/* This is to have a short description of the movie we print only 150 characters */}
                                                 {movie.overview.length > 150
                                                 ? movie.overview.substring(0, 150) + "..."
                                                 : movie.overview}
                                             </p>
-                                            <p className="card-text"><small className="text-white bg-dark">{movie.release_date}</small></p>
+                                            <p className="card-text"><small className="text-white bg-dark">{movie.release_date}</small></p> {/* TODO remplace by the director and maybe put the release year bellow the director name */}
                                         </div>
                                         </div>
                                         </div>
