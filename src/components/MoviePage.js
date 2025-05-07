@@ -18,8 +18,8 @@ export default function MoviePage() {
                 const response = await movieService.getById(id);//get the movie
                 console.log(response.data);
                 setMovie(response.data);
-                setPosterUrl(`${TMDB_POSTER_URL}w342${response.data.poster_path}`);
-                setBackdropUrl(`${TMDB_BACKDROP_URL}w1280${response.data.backdrop_path}`);
+                setPosterUrl(`${process.env.REACT_APP_TMDB_POSTER_URL}w342${response.data.poster_path}`);
+                setBackdropUrl(`${process.env.REACT_APP_TMDB_BACKDROP_URL}w1280${response.data.backdrop_path}`);
                 setLoading(false);
             } catch (err) {
                 setError('Failed to fetch movies');
