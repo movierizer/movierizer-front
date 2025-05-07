@@ -18,8 +18,8 @@ export default function MoviePage() {
                 const response = await movieService.getById(id);//get the movie
                 console.log(response.data);
                 setMovie(response.data);
-                setPosterUrl(`https://image.tmdb.org/t/p/w342${response.data.poster_path}`);
-                setBackdropUrl(`https://image.tmdb.org/t/p/w1280${response.data.backdrop_path}`);
+                setPosterUrl(`${TMDB_POSTER_URL}w342${response.data.poster_path}`);
+                setBackdropUrl(`${TMDB_BACKDROP_URL}w1280${response.data.backdrop_path}`);
                 setLoading(false);
             } catch (err) {
                 setError('Failed to fetch movies');
@@ -51,7 +51,7 @@ export default function MoviePage() {
                 {/* Movie Poster */}
                 <img
                     src= {posterUrl} 
-                    alt="Léon Poster"
+                    alt=" ${movie.title}Poster"
                     className="img-fluid me-4 rounded"
                     style={{ width: '300px', height: '500px', objectFit: 'cover' }}
                 />

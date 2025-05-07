@@ -59,7 +59,7 @@ export default function SearchForm (){
     };
     
 
-    if (error) return <div><Error error={error} /></div> //find a other way to print the error and put a message where no movie was found 
+    if (error) return <div><Error error={error} /></div> //TODO find a other way to print the error and put a message where no movie was found 
 
     return(
         <div>
