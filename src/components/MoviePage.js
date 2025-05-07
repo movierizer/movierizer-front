@@ -26,7 +26,7 @@ export default function MoviePage() {
             } catch (err) {
                 setError('Failed to fetch movies');
                 setLoading(false);
-                lo.error(err); 
+                log.error(err); 
             }
         };
         fetchmovies();
