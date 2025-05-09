@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Error from './Error';
-import { movieService } from '../services/api';
+import  apiService  from '../services/AuthService';
 import { NavLink } from 'react-router-dom';
 import { useRef } from 'react';
 import log from 'loglevel';
@@ -18,7 +18,7 @@ export default function SearchForm (){
         setError(null);
 
         try{
-            const reponse = await movieService.search(query);
+            const reponse = await apiService.movies.search(query);
             setResult(reponse.data);
             setTimeout(() => {
                 if(query === ''){

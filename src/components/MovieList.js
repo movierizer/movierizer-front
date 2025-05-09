@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { movieService } from '../services/api';
+import  apiService  from '../services/AuthService';
 import { Link } from 'react-router-dom';
 import Error from './Error';
 import log from 'loglevel';
@@ -15,7 +15,7 @@ const MovieList = () => {
 
         const fetchmovies = async () => {
             try{
-                const response = await movieService.getAll();//get all movies from the database (SELECT * FROM movies)
+                const response = await apiService.movies.getAll();//get all movies from the database (SELECT * FROM movies)
                 setMovies(response.data);
                 setLoading(false);
             } catch (err) {

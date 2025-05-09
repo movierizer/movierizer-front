@@ -36,6 +36,12 @@ export default function NavBar() {
                 <li><Link className="dropdown-item" href="">WatchList</Link></li>
               </ul>
             </li>
+            <li className="nav-item me-5">
+              <NavLink to="/login" className="nav-link active">login</NavLink> 
+            </li>
+            <li className="nav-item me-5">
+              <NavLink to="/register" className="nav-link active">register</NavLink> {/* This will be disabled when have make the movierizer button */}
+            </li>
           </ul>
         </div>
       </div>

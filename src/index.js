@@ -7,6 +7,10 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 /*This is the main classof my application where the component app is call and render */
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
-root.render(<App />); 
+root.render(   
+    <React.StrictMode>
+        <App />
+    </React.StrictMode>
+); 
 
 reportWebVitals();

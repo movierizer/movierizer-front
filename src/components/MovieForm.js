@@ -1,5 +1,5 @@
 import React, { useState} from 'react';
-import { movieService } from '../services/api';
+import apiService from '../services/AuthService';
 import Error from './Error';
 import log from 'loglevel';
 
@@ -27,7 +27,7 @@ const MovieForm = () => {
         };
         
         try{
-          await movieService.create(newMovie); //call the API to add the movie
+          await apiService.movies.create(newMovie); //call the API to add the movie
           setLoading(false);
           setSuccessMessage(newMovie.title + ' added successfully');
           //reset the form

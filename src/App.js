@@ -8,6 +8,8 @@ import MovieForm from './components/MovieForm';
 import HomePage from './components/HomePage';
 import MoviePage from './components/MoviePage';
 import log from 'loglevel';
+import LoginComponent from './components/LoginComponent';
+import RegisterComponent from './components/RegisterComponent';
 
 
 log.setLevel(process.env.NODE_ENV === 'development' ? 'debug' : 'warn');
@@ -21,6 +23,8 @@ export default function App() {
         <div className="content">
           <Routes>
             <Route exact path="/" element={<HomePage />}></Route>
+            <Route exact path="/register" element={<RegisterComponent />}></Route>
+            <Route exact path="/login" element={<LoginComponent />}></Route>
             <Route exact path="/addmovies" element={<MovieForm />}></Route>
             <Route exact path="/movies" element={< MovieList />}></Route>
             <Route exact path="/movies/:id" element={< MoviePage />}></Route>
