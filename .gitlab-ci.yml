@@ -16,7 +16,7 @@ build:
     - npm run build
   artifacts:
     paths:
-      - build
+      - build/
 
 #{package stage to build the docker image}
 package:
@@ -27,8 +27,10 @@ package:
   before_script:
     - mkdir -p /kaniko/.docker
     - cp $DOCKER_AUTH_CONFIG /kaniko/.docker/config.json
+    - ls build/
+    - cp -r ./build/ docker/
   script: 
      - /kaniko/executor 
-        --context "${CI_PROJECT_DIR}" 
-        --dockerfile Dockerfile 
+        --context "${CI_PROJECT_DIR}/docker" 
+        --dockerfile ${CI_PROJECT_DIR}/docker/Dockerfile 
         --destination "s0nren/movierizer-front:${FRONT_VERSION}" 
