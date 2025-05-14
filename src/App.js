@@ -1,7 +1,5 @@
 import './App.css';
 import React from 'react';
-import { BrowserRouter as Router} from 'react-router-dom';
-import NavBar from './components/navBar/NavBar';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import log from 'loglevel';
 import  AuthProvider  from './components/AuthContext';

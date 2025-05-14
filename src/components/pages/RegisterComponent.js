@@ -23,10 +23,6 @@ const RegisterComponent = () => {
         }
     };
 
-    const handleChange = (e) => {
-        setForm({ ...form, [e.target.name]: e.target.value });
-    };
-
     if (error) return <div><Error error={error} /></div>
     
     return (
