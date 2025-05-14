@@ -1,24 +1,25 @@
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
-import  apiService  from '../services/AuthService';
+import  apiService  from '../../services/AuthService';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import Error from './Error';
+import Error from '../Error';
+import { useAuth } from '../AuthContext';
 
 const LoginComponent = () => {
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
-    const [message, setMessage] = useState('');
+    const [form, setForm] = useState({ username: "", password: "" });
     const [error, setError] = useState(null);
     const navigate = useNavigate();
+    const { setToken } = useAuth();
 
     const handleLogin = async (e) => {
         e.preventDefault();
         try {
-            const response = await apiService.auth.login({ email, password });
-            if (response.data === 'Login successful') {
+            const response = await apiService.auth.login(form);
+            if (response.status === 200) {
+                setToken(response.data.token);
                 navigate('/movies');
             } else {
-                setMessage('Invalid credentials');
+                setError('Invalid credentials');
             }
         } catch (error) {
             setError('Invalid credentials');
@@ -34,15 +35,16 @@ const LoginComponent = () => {
                     <div className="card">
                         <div className="card-header">Login Form</div>
                         <div className="card-body">
-                            {message && <div className="alert alert-danger">{message}</div>}
+                            {error && <div className="alert alert-danger">{error}</div>}
                             <form onSubmit={handleLogin}>
                                 <div className="form-group">
-                                    <label>Email</label>
+                                    <label>username</label>
                                     <input
-                                        type="email"
+                                        type="text"
                                         className="form-control"
-                                        value={email}
-                                        onChange={(e) => setEmail(e.target.value)}
+                                        value={form.username}
+                                        onChange={(e) => setForm({ ...form, username: e.target.value })}
+                                        placeholder="username"
                                     />
                                 </div>
                                 <div className="form-group">
@@ -50,8 +52,9 @@ const LoginComponent = () => {
                                     <input
                                         type="password"
                                         className="form-control"
-                                        value={password}
-                                        onChange={(e) => setPassword(e.target.value)}
+                                        value={form.password}
+                                        onChange={(e) => setForm({ ...form, password: e.target.value })}
+                                        placeholder="Password"
                                     />
                                 </div>
                                 <button type="submit" className="btn btn-primary">Login</button>

@@ -12,10 +12,19 @@ const api = axios.create({
     }
 });
 
+api.interceptors.request.use((config) => {
+    const token = localStorage.getItem('token');
+    if (token) {
+      config.headers.Authorization = `Bearer ${token}`;
+    }
+    return config;
+});
+
+
 const apiService = {
     auth: {
-        register: (user) => api.post('/register', user),
-        login: (credentials) => api.post('/login', credentials),
+        register: (user) => api.post('/auth/signup', user),
+        login: (credentials) => api.post('/auth/login', credentials),
     },
     movies: {
         getAll: () => api.get('/movies'),

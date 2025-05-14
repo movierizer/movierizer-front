@@ -1,6 +1,6 @@
 import React, { useState} from 'react';
-import apiService from '../services/AuthService';
-import Error from './Error';
+import apiService from '../../services/AuthService';
+import Error from '../Error';
 import log from 'loglevel';
 
 /* This component is used to add a movie with a form */

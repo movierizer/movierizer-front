@@ -1,29 +1,30 @@
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
-import  apiService    from '../services/AuthService'; 
+import  apiService    from '../../services/AuthService'; 
 import 'bootstrap/dist/css/bootstrap.min.css';
-import Error from './Error';
+import Error from '../Error';
 
 const RegisterComponent = () => {
-    const [firstName, setFirstName] = useState('');
-    const [lastName, setLastName] = useState('');
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
-    const [message, setMessage] = useState('');
+    const [form, setForm] = useState({ email: "", password: "", username: "" });
     const [error, setError] = useState(null);
     const navigate = useNavigate();
 
     const handleRegister = async (e) => {
         e.preventDefault();
         try {
-            const response = await apiService.auth.register({ firstName, lastName, email, password });
-            setMessage(response.data);
-            if (response.data === 'User registered successfully') {
+            const response = await apiService.auth.register(form);
+            if (response.status === 200){
                 navigate('/login');
+            }else{
+                setError('connexion register failed');
             }
         } catch (error) {
             setError('Registration failed');
         }
+    };
+
+    const handleChange = (e) => {
+        setForm({ ...form, [e.target.name]: e.target.value });
     };
 
     if (error) return <div><Error error={error} /></div>
@@ -35,24 +36,16 @@ const RegisterComponent = () => {
                     <div className="card">
                         <div className="card-header">Registration</div>
                         <div className="card-body">
-                            {message && <div className="alert alert-info">{message}</div>}
+                            {error && <div className="alert alert-info">{error}</div>}
                             <form onSubmit={handleRegister}>
                                 <div className="form-group">
-                                    <label>First Name</label>
+                                    <label>Username</label>
                                     <input
                                         type="text"
                                         className="form-control"
-                                        value={firstName}
-                                        onChange={(e) => setFirstName(e.target.value)}
-                                    />
-                                </div>
-                                <div className="form-group">
-                                    <label>Last Name</label>
-                                    <input
-                                        type="text"
-                                        className="form-control"
-                                        value={lastName}
-                                        onChange={(e) => setLastName(e.target.value)}
+                                        value={form.username}
+                                        onChange={(e) => setForm({ ...form, username: e.target.value })}
+                                        placeholder="Username"
                                     />
                                 </div>
                                 <div className="form-group">
@@ -60,8 +53,9 @@ const RegisterComponent = () => {
                                     <input
                                         type="email"
                                         className="form-control"
-                                        value={email}
-                                        onChange={(e) => setEmail(e.target.value)}
+                                        value={form.email}
+                                        onChange={(e) => setForm({ ...form, email: e.target.value })}
+                                        placeholder="Email"
                                     />
                                 </div>
                                 <div className="form-group">
@@ -69,8 +63,9 @@ const RegisterComponent = () => {
                                     <input
                                         type="password"
                                         className="form-control"
-                                        value={password}
-                                        onChange={(e) => setPassword(e.target.value)}
+                                        value={form.password}
+                                        onChange={(e) => setForm({ ...form, password: e.target.value })}
+                                        placeholder="Password"
                                     />
                                 </div>
                                 <button type="submit" className="btn btn-primary">Register</button>

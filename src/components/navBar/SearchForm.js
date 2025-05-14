@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import Error from './Error';
-import  apiService  from '../services/AuthService';
+import Error from '../Error';
+import  apiService  from '../../services/AuthService';
 import { NavLink } from 'react-router-dom';
 import { useRef } from 'react';
 import log from 'loglevel';
