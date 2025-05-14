@@ -27,7 +27,7 @@ export default function NavBar() {
         <div>
           <SearchForm/>
         </div>
-        <div className="collapse navbar-collapse" id="navbarSupportedContent">
+        <div className="collapse navbar-collapse d-flex justify-content-center" id="navbarSupportedContent">
           <ul className="navbar-nav me-5">
             <li className="nav-item me-5">
               <NavLink to="/addmovies" className="nav-link active" >MovieForm</NavLink>
@@ -50,6 +50,9 @@ export default function NavBar() {
             </li>
             <li className="nav-item me-5">
               <button type="button" className="btn btn-outline-light" onClick={handleLogout}>logout</button> 
+            </li>
+            <li className="nav-item me-5" style={{ lineHeight: 'normal' }}>
+              <NavLink to="/register" className="nav-link active"><i className="bi bi-person-circle fs-4 "></i></NavLink>
             </li>
           </ul>
         </div>

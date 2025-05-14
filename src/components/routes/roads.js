@@ -54,6 +54,10 @@ const Routes = () => {
                     path: "/movies/:id",
                     element: <MoviePage />,
                     },
+                    {
+                    path: "/",
+                    element: <HomePage/>,
+                    },
                 ]
             },
           ],

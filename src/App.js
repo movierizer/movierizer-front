@@ -1,6 +1,7 @@
 import './App.css';
 import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import 'bootstrap-icons/font/bootstrap-icons.css';
 import log from 'loglevel';
 import  AuthProvider  from './components/AuthContext';
 import Routes from "./components/routes/roads";
