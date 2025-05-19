@@ -97,10 +97,10 @@ const ProfilePage = () => {
                             <p>Compte actif depuis le : {formatDate(user.create_at)} </p>
                             <p>Dernière mise a jour du compte le : {formatDate(user.updatedAt)}</p>
                             {successMessage && <div className="success-message">{successMessage}</div>}
-                            <form className="d-flex me-5 mb-2" role="text" onSubmit={handleAddToken}>
+                            <form className="d-flex me-5 mb-2" role="form" onSubmit={handleAddToken}>
                                 <input 
                                 className="form-control me-2" 
-                                type="fomr" 
+                                type="text" 
                                 placeholder="Token TMDB" 
                                 aria-label="Search" 
                                 value={tokenTMDB}
