@@ -52,7 +52,7 @@ export default function NavBar() {
               <button type="button" className="btn btn-outline-light" onClick={handleLogout}>logout</button> 
             </li>
             <li className="nav-item me-5" style={{ lineHeight: 'normal' }}>
-              <NavLink to="/register" className="nav-link active"><i className="bi bi-person-circle fs-4 "></i></NavLink>
+              <NavLink to="/profile" className="nav-link active"><i className="bi bi-person-circle fs-4 "></i></NavLink>
             </li>
           </ul>
         </div>

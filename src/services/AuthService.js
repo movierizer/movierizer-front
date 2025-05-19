@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const apiBaseUrl = process.env.REACT_APP_BASE_URL;
+const apiBaseUrl = window._env_.REACT_APP_BASE_URL;
 if (!apiBaseUrl) {
     console.error('REACT_APP_BASE_URL is not defined!');
 }
@@ -22,6 +22,12 @@ api.interceptors.request.use((config) => {
 
 
 const apiService = {
+    user: {
+        get: () => api.get('/users'),
+        update: (user) => api.put('/users', user),
+        delete: () => api.delete('/users'),
+        updateTokenTMDB: (token) => api.put('/users/token', token),
+    },
     auth: {
         register: (user) => api.post('/auth/signup', user),
         login: (credentials) => api.post('/auth/login', credentials),

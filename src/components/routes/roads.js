@@ -8,6 +8,7 @@ import MovieList from "../pages/MovieList";
 import MoviePage from "../pages/MoviePage";
 import MovieForm from "../pages/MovieForm";
 import Layout from "../navBar/Layout";
+import ProfilePage from "../pages/ProfilePage";
 
 const Routes = () => {
     const { token } = useAuth();
@@ -57,6 +58,10 @@ const Routes = () => {
                     {
                     path: "/",
                     element: <HomePage/>,
+                    },
+                    {
+                    path: "/profile",
+                    element: <ProfilePage/>,
                     },
                 ]
             },
