@@ -74,7 +74,7 @@ export default function SearchForm (){
                     value={query}
                     onChange={(e) => setQuery(e.target.value)}
                     required/>
-                    <button className="btn btn-outline-success" type="submit">Search</button>
+                    <button className="btn btn btn-outline-warning" type="submit">Search</button>
                 </form>
                 {showResults &&result.total_results > 0 && (
                     <div ref={wrapperRef}

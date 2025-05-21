@@ -14,6 +14,7 @@ const RegisterComponent = () => {
         try {
             const response = await apiService.auth.register(form);
             if (response.status === 200){
+                setStorage('username', response.data.username);
                 navigate('/login');
             }else{
                 setError('connexion register failed');
@@ -22,6 +23,10 @@ const RegisterComponent = () => {
             setError('Registration failed');
         }
     };
+
+    const setStorage = (name, value) => {
+        localStorage.setItem(name, value);
+    }
 
     if (error) return <div><Error error={error} /></div>
     

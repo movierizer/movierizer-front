@@ -11,6 +11,7 @@ export default function MoviePage() {
     const [error, setError] = useState(null);
     const [posterUrl, setPosterUrl] = useState(null);
     const [backdropUrl, setBackdropUrl] = useState(null);
+    const [rating, setRating] = useState(70);
 
     const {id} = useParams();
     useEffect(() => {
@@ -32,6 +33,18 @@ export default function MoviePage() {
         fetchmovies();
     }, [id]);
     
+    const formatDate = (dateStr) => {
+        if (!dateStr) return 'Date inconnue';
+        const date = new Date(dateStr);
+        return date.toLocaleString('fr-FR', {
+        year: 'numeric',
+        });
+    };
+
+    const handleSubmitNote = async (e) => {
+        e.preventDefault();
+    }
+
     if (loading) return <div>Loading...</div>
     if (error) return   <div><Error error={error} /></div>
 
@@ -39,7 +52,7 @@ export default function MoviePage() {
         <div className="container " style={{ Width: '1296px' }}>
             {/* Background image section */}
             <div
-            className="position-relative mx-auto d-block text-center shadow"
+            className="backdrop-wrapper position-relative mx-auto d-block text-center shadow"
             style={{
             backgroundImage: backdropUrl ? `url(${backdropUrl})` : '',
             backgroundSize: 'cover',
@@ -47,8 +60,9 @@ export default function MoviePage() {
             minHeight: '450px',
             height: '400px',
             width: '1296px'
-            }}
-            ></div>
+            }}>
+            <div className="fade-left"></div>
+            </div>
             <div className="d-flex bg-dark bg-opacity-75 rounded p-4 text-white" style ={{ Width: '1296px' }}>
                 {/* Movie Poster */}
                 <img
@@ -60,43 +74,47 @@ export default function MoviePage() {
 
                 {/* Movie Info */}
                 <div className="flex-grow-1">
-                    <h2>{movie.title}</h2>
-                    <p className="mb-10">{movie.release_date}</p> {/* TODO change the date format to get just the year*/}
-
-                    <div className="d-flex justify-content-between mb-10" style={{ height: '100px', marginBottom: '15px' }}>
-                        <div className="bg-secondary rounded text-center px-3 py-2" style={{ width: '150px' }}>
-                            <h3>Durée</h3>
-                            <div>{movie.runtime}</div>
-                        </div>
-                        <div className="bg-secondary rounded text-center px-3 py-2" style={{ width: '150px' }}>
-                            <h3>Status</h3> {/* TODO the status is not implemented yet so it's just a simple print but in term we use the user information in this part*/}
-                            <div>
-                                <span className="badge bg-success">watched</span>
-                            </div>
-                        </div>
-                        <div className="bg-secondary rounded text-center py-2" style={{ width: '150px' }}>
-                            <h3>popularity</h3> {/* TODO Same thing as the status but here the popularity is calculated by the API */}
-                            <div>9.5</div>
-                        </div>
-                    </div>
+                    <h2 className="mb-3 fs-1 fw-bold text-light" style={{ textShadow: '0 0 10px rgba(255,255,255,0.4)' }}>{movie.title}</h2>
+                    <p className="mb-5 fs-3 text-secondary fst-italic" style={{ letterSpacing: '1px' }} >{formatDate(movie.release_date)}</p> {/* TODO change the date format to get just the year*/}
 
                     {/* Tags */}
-                    <div style={{ marginBottom: '50px' }}> {/* TODO the genres are not implemented yet because the data are more complicated to get */}
+                    <div style={{ marginBottom: '50px' }} className="fs-4"> {/* TODO the genres are not implemented yet because the data are more complicated to get */}
                         {['drame', 'action', 'crime', 'glasses'].map((tag) => (
-                            <span key={tag} className="badge bg-light text-dark me-2">
+                            <span key={tag} className="badge bg-warning text-dark me-5">
                             {tag}
                             </span>
                         ))}
                     </div>
-
-                    {/* TODO Add to Watchlist */}
-                    <div className="d-flex align-items-center mb-3" style={{ width: '300px' }}>
-                        <input type="text" className="form-control me-2" placeholder="Add" />
-                        <button className="btn btn-outline-light">WatchList</button>
+                    
+                    <div className="d-flex justify-content-between align-items-center mb-5">
+                        <div className="slider-wrapper">
+                            <input
+                                type="range"
+                                min="0"
+                                max="100"
+                                value={rating}
+                                onChange={(e) => setRating(Number(e.target.value))}
+                                className="custom-slider"
+                                />
+                            <span className="note-display me-3">{rating}/100</span>
+                            <button className="btn btn-warning" onClick={handleSubmitNote}>
+                                Noter
+                            </button>
+                        </div>
+                        {/* Boutons à droite */}
+                        <div className="text-end">
+                            <div className="d-flex justify-content-end align-items-center mb-2">
+                            <button className="btn btn-outline-light me-2 fs-4">Add to the Collection</button>
+                            <i className="bi bi-film fs-1 me-5"></i>
+                            </div>
+                            <div className="d-flex justify-content-end align-items-center">
+                            <button className="btn btn-outline-light me-2 fs-4">Add to the Watchlist</button>
+                            <i className="bi bi-eye fs-1 me-5"></i>
+                            </div>
+                        </div>
                     </div>
-
                     {/* Description */}
-                    <p>
+                    <p className="fs-4">
                     {movie.overview}
                     </p>
                 </div>
