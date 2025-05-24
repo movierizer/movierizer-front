@@ -22,6 +22,10 @@ api.interceptors.request.use((config) => {
 
 
 const apiService = {
+    list: {
+        getWatchlist: () => api.get('/lists/watchlist'),
+        getCollection: () => api.get('/lists/collection'),
+    },
     user: {
         get: () => api.get('/users'),
         update: (user) => api.put('/users', user),
