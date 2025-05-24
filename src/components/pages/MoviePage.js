@@ -186,7 +186,7 @@ export default function MoviePage() {
                             )}    
                         {/* Boutons à droite */}
                             {/** TODO pour cha ger la note et changer le boolean en string*/}
-                            {userMovie.watchlist === null || userMovie.watchlist === "none" ? ( // The user has not added the movie to the watchlist or to his collection
+                            {watchlist === "none" ? ( // The user has not added the movie to the watchlist or to his collection
 
                                     <div className="text-end">
                                         {successMessageList && <div className="success-message">{successMessageList}</div>}
@@ -197,7 +197,7 @@ export default function MoviePage() {
                                             <button className="btn btn-outline-warning me-2 fs-4 text-light" onClick={() =>handleStatus("watchlist")}> Add to the Watchlist <i className="bi bi-eye fs-2"></i> </button>
                                         </div>
                                     </div>
-                                ) : userMovie.watchlist === "watchlist" ? ( // The user has added the movie to the watchlist and so at it's collection too
+                                ) : watchlist === "watchlist" ? ( // The user has added the movie to the watchlist and so at it's collection too
 
                                     <div className="text-end">
                                         <div className="confirmation-box text-light d-flex align-items-center justify-content-end mb-2">                                            
