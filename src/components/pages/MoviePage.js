@@ -33,6 +33,7 @@ export default function MoviePage() {
                 setUserMovie(prev => ({ ...prev, userid: response.data.user_id }));
                 setUserMovie(prev => ({ ...prev, watchlist: response.data.watchlist }));
                 setUserMovie(prev => ({ ...prev, grade: response.data.grade }));
+                setWatchlist(response.data.watchlist);
                 if (response.data.grade !== null){
                     setIsNoted(true);
                 }else{
