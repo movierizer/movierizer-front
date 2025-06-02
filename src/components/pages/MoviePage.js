@@ -28,8 +28,8 @@ export default function MoviePage() {
                 const response = await apiService.movies.getById(id);//get the movie from the database or the API (SELECT * FROM movies WHERE id = id)
                 log.info(response.data); 
                 setMovie(response.data);
-                setPosterUrl(`${window._env_.REACT_APP_TMDB_POSTER_URL}w342${response.data.poster_path}`); //this is a path to the movie poster with the size w342 (the size can be changed)
-                setBackdropUrl(`${window._env_.REACT_APP_TMDB_BACKDROP_URL}w1280${response.data.backdrop_path}`); //this is a path to the movie backdrop with the size w1280 (the size can be changed)
+                setPosterUrl(`${process.env.REACT_APP_TMDB_POSTER_URL}w342${response.data.poster_path}`); //this is a path to the movie poster with the size w342 (the size can be changed)
+                setBackdropUrl(`${process.env.REACT_APP_TMDB_BACKDROP_URL}w1280${response.data.backdrop_path}`); //this is a path to the movie backdrop with the size w1280 (the size can be changed)
                 setUserMovie(prev => ({ ...prev, userid: response.data.user_id }));
                 setUserMovie(prev => ({ ...prev, watchlist: response.data.watchlist }));
                 setUserMovie(prev => ({ ...prev, grade: response.data.grade }));

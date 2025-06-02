@@ -15,7 +15,7 @@ const MovieCard = ({ movie }) => {
     <div className="card m-3 shadow" style={{ width: '18rem',  border: 'none', padding: 0, backgroundColor: '#1a1a1a', color: 'white' }}>
       <NavLink to={`/movies/${movie.idmovie}`}>
         <img
-          src={`${window._env_.REACT_APP_TMDB_POSTER_URL}w342${movie.poster_path}`}
+          src={`${process.env.REACT_APP_TMDB_POSTER_URL}w342${movie.poster_path}`}
           className="card-img-top"
           alt={movie.title}
           style={{ height: 'auto', objectFit: 'cover', margin: 0, padding: 0, border: 'none', display: 'block' }}                                                                   

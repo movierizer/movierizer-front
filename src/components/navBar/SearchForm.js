@@ -89,7 +89,7 @@ export default function SearchForm (){
                                         <div className="col-md-2">
                                             {/* TODO add a picture for no movie found */}
                                             <NavLink to={`/movies/${movie.id}`} onClick={handleResultClick}>
-                                                <img src={`${window._env_.REACT_APP_TMDB_POSTER_URL}w92${movie.poster_path}`} className="img-fluid rounded-start" alt=""/> 
+                                                <img src={`${process.env.REACT_APP_TMDB_POSTER_URL}w92${movie.poster_path}`} className="img-fluid rounded-start" alt=""/> 
                                             </NavLink>
                                         </div>
                                         <div className="col-md-10"> {/** See to reduce the space betwen poster and description */}
