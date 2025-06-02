@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import  apiService  from '../../services/AuthService';
-import { Link } from 'react-router-dom';
 import Error from '../Error';
 import log from 'loglevel';
 import MovieCard from '../MovieCard';
