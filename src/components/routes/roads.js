@@ -9,6 +9,7 @@ import MoviePage from "../pages/MoviePage";
 import MovieForm from "../pages/MovieForm";
 import Layout from "../navBar/Layout";
 import ProfilePage from "../pages/ProfilePage";
+import MovieCollection from "../pages/MovieCollection";
 
 const Routes = () => {
     const { token } = useAuth();
@@ -48,7 +49,7 @@ const Routes = () => {
                     element: <MovieForm />,
                     },
                     {
-                    path: "/movies",
+                    path: "/watchlist",
                     element: <MovieList />,
                     },
                     {
@@ -62,6 +63,10 @@ const Routes = () => {
                     {
                     path: "/profile",
                     element: <ProfilePage/>,
+                    },
+                    {
+                    path: "/collection",
+                    element: <MovieCollection/>,
                     },
                 ]
             },

@@ -17,7 +17,7 @@ const LoginComponent = () => {
             const response = await apiService.auth.login(form);
             if (response.status === 200) {
                 setToken(response.data.token);
-                navigate('/movies');
+                navigate('/');
             } else {
                 setError('Invalid credentials');
             }

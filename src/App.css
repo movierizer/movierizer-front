@@ -109,3 +109,38 @@
   height: 48px; 
   line-height: 1;
 }
+
+
+.custom-hover-button {
+  opacity: 0.7;
+  transition: opacity 0.3s ease;
+  border-radius: 999px; 
+}
+
+.custom-hover-button:hover {
+  opacity: 1; 
+}
+
+.movie-title-link {
+  display: block;
+  text-decoration: none;
+  min-width: 0;
+}
+
+.movie-title-link h5 {
+  white-space: nowrap;      
+  overflow: hidden;         
+  text-overflow: ellipsis;  
+
+  font-size: 1rem;
+  color: white; 
+  margin-bottom: 0; 
+  font-weight: bold;
+  transition: text-decoration 0.3s ease;
+}
+
+.movie-title-link:hover h5 {
+  text-decoration: underline; 
+  text-decoration-color: white; 
+  text-underline-offset: 3px; 
+}

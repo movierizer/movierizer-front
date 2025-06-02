@@ -88,11 +88,12 @@ export default function SearchForm (){
                                         <div className="row g-0 text-white bg-dark"> 
                                         <div className="col-md-2">
                                             {/* TODO add a picture for no movie found */}
-                                            {/* TODO make the poster clickable to go to the movie page */}
-                                            <img src={`${window._env_.REACT_APP_TMDB_POSTER_URL}w92${movie.poster_path}`} className="img-fluid rounded-start" alt=""/> 
+                                            <NavLink to={`/movies/${movie.id}`} onClick={handleResultClick}>
+                                                <img src={`${window._env_.REACT_APP_TMDB_POSTER_URL}w92${movie.poster_path}`} className="img-fluid rounded-start" alt=""/> 
+                                            </NavLink>
                                         </div>
-                                        <div className="col-md-10">
-                                        <div className="card-body">
+                                        <div className="col-md-10"> {/** See to reduce the space betwen poster and description */}
+                                        <div className="card-body"> {/** TODO add the realisator to the descriptionw */}
                                             <NavLink to={`/movies/${movie.id}`} 
                                             className="card-title nav-link-active text-decoration-none" 
                                             onClick={handleResultClick}> {/* If you click on a movie in the result it will go to the movie page */}

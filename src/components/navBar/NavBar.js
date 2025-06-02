@@ -38,7 +38,6 @@ export default function NavBar() {
               </NavLink>
               <ul className="dropdown-menu ">
                 <li><Link className="dropdown-item" to="/collection">Collection</Link></li>
-                <li><Link className="dropdown-item" to="/movies">MovieList</Link></li>
                 <li><Link className="dropdown-item" to="/watchlist">WatchList</Link></li>
               </ul>
             </li>

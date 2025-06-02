@@ -16,7 +16,7 @@ const MovieList = () => {
 
         const fetchmovies = async () => {
             try{
-                const response = await apiService.list.getWatchlist();
+                const response = await apiService.list.getCollection();
                 setMovies(response.data);
                 setLoading(false);
             } catch (err) {
@@ -34,9 +34,9 @@ const MovieList = () => {
     return (
         <div className="container">
             <h1 className="text-white fw-bold mb-4" style={{ fontSize: '2.5rem', borderBottom: '2px solid white', display: 'inline-block', paddingBottom: '0.3rem', marginLeft: '1rem', marginTop: '1rem'}}>
-                Watchlist
+                Movie Collection
             </h1>
-            <div className="row">
+                <div className="row">
                 {movies.map(movie => (
                 <div key={movie.id} className="col-md-3 d-flex justify-content-center">
                     <MovieCard movie={movie} />
