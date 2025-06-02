@@ -33,4 +33,5 @@ package:
      - /kaniko/executor 
         --context "${CI_PROJECT_DIR}/docker" 
         --dockerfile ${CI_PROJECT_DIR}/docker/Dockerfile 
+        --build-arg ENVIRONNEMENT=${ENVIRONNEMENT}
         --destination "s0nren/movierizer-front:${FRONT_VERSION}" 
