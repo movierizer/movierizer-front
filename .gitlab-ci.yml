@@ -31,6 +31,7 @@ package:
     - cp -r ./build/ docker/
   script: 
      - /kaniko/executor 
-        --context "${CI_PROJECT_DIR}/docker" 
-        --dockerfile ${CI_PROJECT_DIR}/docker/Dockerfile 
+        --context "${CI_PROJECT_DIR}" 
+        --dockerfile ${CI_PROJECT_DIR}/Dockerfile
+        --build-arg "ENV=prod"
         --destination "s0nren/movierizer-front:${FRONT_VERSION}" 

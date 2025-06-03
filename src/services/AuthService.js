@@ -23,26 +23,26 @@ api.interceptors.request.use((config) => {
 
 const apiService = {
     list: {
-        getWatchlist: () => api.get('/lists/watchlist'),
-        getCollection: () => api.get('/lists/collection'),
+        getWatchlist: () => api.get('/api/lists/watchlist'),
+        getCollection: () => api.get('/api/lists/collection'),
     },
     user: {
-        get: () => api.get('/users'),
-        update: (user) => api.put('/users', user),
-        delete: () => api.delete('/users'),
-        updateTokenTMDB: (token) => api.put('/users/token', token),
+        get: () => api.get('/api/users'),
+        update: (user) => api.put('/api/users', user),
+        delete: () => api.delete('/api/users'),
+        updateTokenTMDB: (token) => api.put('/api/users/token', token),
     },
     auth: {
-        register: (user) => api.post('/auth/signup', user),
-        login: (credentials) => api.post('/auth/login', credentials),
+        register: (user) => api.post('/api/auth/signup', user),
+        login: (credentials) => api.post('/api/auth/login', credentials),
     },
     movies: {
-        getAll: () => api.get('/movies'),
-        getById: (id) => api.get(`/movies/${id}`),
-        create: (data) => api.post('/movies', data),
-        update: (id, data) => api.put(`/movies/${id}`, data),
-        delete: (id) => api.delete(`/movies/${id}`),
-        search: (query) => api.get(`/movies?query=${query}`),
+        getAll: () => api.get('/api/movies'),
+        getById: (id) => api.get(`/api/movies/${id}`),
+        create: (data) => api.post('/api/movies', data),
+        update: (id, data) => api.put(`/api/movies/${id}`, data),
+        delete: (id) => api.delete(`/api/movies/${id}`),
+        search: (query) => api.get(`/api/movies?query=${query}`),
     }
 };
 
