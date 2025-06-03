@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const apiBaseUrl = process.env.REACT_APP_BASE_URL;
-console.log("!!!!!!!!! ${apiBaseUrl} !!!!!!")
+console.log("!!!!!!!!!!!!!!!" + apiBaseUrl);
 if (!apiBaseUrl) {
     console.error('REACT_APP_BASE_URL is not defined!');
 }
