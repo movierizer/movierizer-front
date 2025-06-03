@@ -1,6 +1,7 @@
 import axios from 'axios';
 
 const apiBaseUrl = process.env.REACT_APP_BASE_URL;
+console.log("!!!!!!!!!!!!!!!" + apiBaseUrl);
 if (!apiBaseUrl) {
     console.error('REACT_APP_BASE_URL is not defined!');
 }
@@ -11,6 +12,7 @@ const api = axios.create({
         'Content-Type': 'application/json',
     }
 });
+
 
 api.interceptors.request.use((config) => {
     const token = localStorage.getItem('token');
