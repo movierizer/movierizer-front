@@ -1,7 +1,14 @@
-import React from 'react';
 import { NavLink } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import { JOBS } from '../enum/Jobs.js';
+
 
 const MovieCard = ({ movie }) => {
+
+  const getDirectors = () => {
+    const directors = movie.credits.filter((peopleMeovie) => peopleMeovie.job === JOBS.DIRECTOR);
+    return directors[0];
+  };
 
   const formatDate = (dateStr) => {
         if (!dateStr) return 'Date inconnue';
@@ -10,6 +17,7 @@ const MovieCard = ({ movie }) => {
         year: 'numeric',
         });
   };
+
 
   return (
     <div className="card m-3 shadow" style={{ width: '18rem',  border: 'none', padding: 0, backgroundColor: '#1a1a1a', color: 'white' }}>
@@ -32,7 +40,7 @@ const MovieCard = ({ movie }) => {
         </div>
         <div>
           <h5>
-            realisator
+              <p> <strong>{getDirectors().people.name || "non connu"} </strong></p>
           </h5>
         </div>
         <div className="d-flex justify-content-between align-items-center mt-2">

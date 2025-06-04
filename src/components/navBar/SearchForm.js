@@ -58,6 +58,15 @@ export default function SearchForm (){
         setQuery(''); 
         setError(null);
     };
+
+    const formatDate = (dateStr) => {
+        if (!dateStr) return 'Date inconnue';
+        const date = new Date(dateStr);
+        return date.toLocaleString('fr-FR', {
+        year: 'numeric',
+        });
+    };
+
     
 
     if (error) return <div><Error error={error} /></div> //TODO find a other way to print the error and put a message where no movie was found 
@@ -106,7 +115,7 @@ export default function SearchForm (){
                                                 ? movie.overview.substring(0, 150) + "..."
                                                 : movie.overview}
                                             </p>
-                                            <p className="card-text"><small className="text-white bg-dark">{movie.release_date}</small></p> {/* TODO remplace by the director and maybe put the release year bellow the director name */}
+                                            <p className="card-text text-white bg-dark">{formatDate(movie.release_date)}</p> {/* TODO remplace by the director and maybe put the release year bellow the director name */}
                                         </div>
                                         </div>
                                         </div>

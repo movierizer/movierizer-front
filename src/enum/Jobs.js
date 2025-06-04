@@ -1,0 +1,16 @@
+export const JOBS = Object.freeze({
+  ACTOR: "Actor",
+  DIRECTOR: "Director",
+  PRODUCER: "Producer",
+  WRITER: "Writer",
+  SCREENPLAY: "Screenplay",
+  EXECUTIVE_PRODUCER: "Executive Producer",
+  EDITOR: "Editor",
+  DIRECTOR_OF_PHOTOGRAPHY: "Director of Photography",
+  COMPOSER: "Original Music Composer",
+  COSTUME_DESIGNER: "Costume Design",
+  MAKEUP_ARTIST: "Makeup Department Head",
+  PRODUCTION_DESIGN: "Production Design",
+  VISUAL_EFFECTS: "Visual Effects Supervisor",
+  SOUND_MIXER: "Sound Re-Recording Mixer",
+});

@@ -3,10 +3,11 @@ import { useParams } from 'react-router-dom';
 import  apiService  from '../../services/AuthService';
 import Error from '../Error';
 import log from 'loglevel';
+import ActorList from './ActorList';
 
 
 export default function MoviePage() {
-    const [movie, setMovie] = useState(null);
+    const [movie, setMovie] = useState({backdrop_path: null, budget: null, credits: [], directors: [], grade: null, idmovie: null, iduser: null, originel_title: null, poster_path: null, release_date: null, revenue: null, runtime: null, title: null, watchlist: null});
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     const [posterUrl, setPosterUrl] = useState(null);
@@ -16,10 +17,11 @@ export default function MoviePage() {
     const [isNoted, setIsNoted] = useState(false);
     const [rating, setRating] = useState(70);
     const [watchlist, setWatchlist] = useState("none");
+    const [actors, setActors] = useState([]);
+    const [directors, setDirectors] = useState([]);
 
     const {id} = useParams();
 
-    const [userMovie, setUserMovie] = useState({user_id: null, movie_id: id, watchlist: null, grade: null});
 
     useEffect(() => {
 
@@ -28,11 +30,9 @@ export default function MoviePage() {
                 const response = await apiService.movies.getById(id);//get the movie from the database or the API (SELECT * FROM movies WHERE id = id)
                 log.info(response.data); 
                 setMovie(response.data);
+                console.log(response.data);
                 setPosterUrl(`${process.env.REACT_APP_TMDB_POSTER_URL}w342${response.data.poster_path}`); //this is a path to the movie poster with the size w342 (the size can be changed)
                 setBackdropUrl(`${process.env.REACT_APP_TMDB_BACKDROP_URL}w1280${response.data.backdrop_path}`); //this is a path to the movie backdrop with the size w1280 (the size can be changed)
-                setUserMovie(prev => ({ ...prev, userid: response.data.user_id }));
-                setUserMovie(prev => ({ ...prev, watchlist: response.data.watchlist }));
-                setUserMovie(prev => ({ ...prev, grade: response.data.grade }));
                 if (response.data.watchlist === null){
                     setWatchlist("none");
                 }else{
@@ -43,6 +43,12 @@ export default function MoviePage() {
                 }else{
                     setIsNoted(false);
                     setRating(70);
+                }
+                if (response.data.credits !== null){
+                    const filteredActors = response.data.credits.filter(c => c.job === "Actor");
+                    setActors(filteredActors); 
+                    const filteredDirectors = response.data.credits.filter(c => c.job === "Director");
+                    setDirectors(filteredDirectors);
                 }
                 setLoading(false);
             } catch (err) {
@@ -65,8 +71,8 @@ export default function MoviePage() {
     const handleSubmitNote = async (rating) => {
 
         try{
-            const updatedUserMovie = { ...userMovie, grade: rating };
-            setUserMovie(updatedUserMovie);
+            const updatedUserMovie = { ...movie, grade: rating };
+            setMovie(updatedUserMovie);
             const reponse = await apiService.movies.update(id, updatedUserMovie);
             if (reponse.status === 200){
                 setIsNoted(true);
@@ -87,8 +93,8 @@ export default function MoviePage() {
     const handleStatus = async (status) => {
         
         try{
-            const updatedUserMovie = { ...userMovie, watchlist: status };
-            setUserMovie(updatedUserMovie);
+            const updatedUserMovie = { ...movie, watchlist: status };
+            setMovie(updatedUserMovie);
             const reponse = await apiService.movies.update(id, updatedUserMovie);
             if (reponse.status === 200){
                 setWatchlist(status);
@@ -105,8 +111,8 @@ export default function MoviePage() {
     const handleUpdateStatus = async (status) => {
         
         try{
-            const updatedUserMovie = { ...userMovie, watchlist: status };
-            setUserMovie(updatedUserMovie);
+            const updatedUserMovie = { ...movie, watchlist: status };
+            setMovie(updatedUserMovie);
             const reponse = await apiService.movies.update(id, updatedUserMovie);
             if (reponse.status === 200){
                 setWatchlist(status);
@@ -149,6 +155,7 @@ export default function MoviePage() {
                 {/* Movie Info */}
                 <div className="flex-grow-1">
                     <h2 className="mb-3 fs-1 fw-bold text-light" style={{ textShadow: '0 0 10px rgba(255,255,255,0.4)' }}>{movie.title}</h2>
+                    <h4 className="mb-3 fs-3 fw-bold text-light" style={{ textShadow: '0 0 10px rgba(255,255,255,0.4)' }}>{directors.map((director) => director.people.name).join(', ')}</h4>
                     <p className="mb-5 fs-3 text-secondary fst-italic" style={{ letterSpacing: '1px' }} >{formatDate(movie.release_date)}</p> {/* TODO change the date format to get just the year*/}
 
                     {/* Tags */}
@@ -160,13 +167,18 @@ export default function MoviePage() {
                         ))}
                     </div>
                     
+                    {successMessageGrade && (
+                        <div className="success-message w-100 text-center">
+                            {successMessageGrade}
+                        </div>
+                    )}
+                    {successMessageList && <div className="success-message w-100 text-center">{successMessageList}</div>}
                     <div className="d-flex justify-content-between align-items-end mb-5">
-                        {successMessageGrade && <div className="success-message">{successMessageGrade}</div>}
                         {isNoted ? (
                             <div className="rating-wrapper">  {/** TODO make a good CSS */}
                                 <h5 className="movie-title text-warning mb-3">grade :</h5>
                                 <div className="rating-value text-light fw-bold">
-                                    ⭐ {userMovie.grade}/100
+                                    ⭐ {movie.grade}/100
                                 </div>
                                 <button className="btn btn-warning" onClick={handleUnsubmitNote}>
                                     Change the grade
@@ -190,11 +202,9 @@ export default function MoviePage() {
                             </div>
                             )}    
                         {/* Boutons à droite */}
-                            {/** TODO pour cha ger la note et changer le boolean en string*/}
                             {watchlist === "none" ? ( // The user has not added the movie to the watchlist or to his collection
 
                                     <div className="text-end">
-                                        {successMessageList && <div className="success-message">{successMessageList}</div>}
                                         <div className="d-flex justify-content-end align-items-center mb-2">
                                             <button className="btn btn-outline-warning me-2 fs-4 text-light " onClick={() =>handleStatus("collection")}>Add to the Collection <i className="bi bi-film fs-2"></i> </button>
                                         </div>
@@ -225,7 +235,6 @@ export default function MoviePage() {
                                             <span className="me-2">Added to Collection</span>
                                             <button className="btn btn-outline-warning me-2 text-light" onClick={() =>handleUpdateStatus("none")}>remove </button>
                                         </div>
-                                        {successMessageList && <div className="success-message">{successMessageList}</div>}
                                         <div className="d-flex justify-content-end align-items-center">
                                             <button className="btn btn-outline-warning me-2 fs-4 text-light" onClick={() =>handleStatus("watchlist")}>Add to the Watchlist <i className="bi bi-eye fs-2"></i> </button>
                                         </div>
@@ -242,6 +251,7 @@ export default function MoviePage() {
                     </p>
                 </div>
             </div>
+            <ActorList actors={actors}/>
         </div>
     );
 }

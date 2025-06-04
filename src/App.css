@@ -144,3 +144,117 @@
   text-decoration-color: white; 
   text-underline-offset: 3px; 
 }
+
+
+.scroll-container {
+  position: relative;
+  overflow: hidden;
+}
+
+/* Flèches visibles au survol */
+.scroll-container:hover .arrow-button {
+  opacity: 1;
+}
+
+/* Masquer la scrollbar dans tous les navigateurs */
+.scroll-container .scroll-menu-wrapper {
+  overflow-x: hidden !important;
+  -ms-overflow-style: none;  /* IE 10+ */
+  scrollbar-width: none;     /* Firefox */
+}
+
+.scroll-container .scroll-menu-wrapper::-webkit-scrollbar {
+  display: none;
+}
+
+/* Boutons flèches (thème Bootstrap warning) */
+.arrow-button {
+  width: 48px;
+  height: 48px;
+  background-color: #ffc107;      /* couleur warning */
+  color: #4a4a4a;
+  border: 2px solid #ffc107;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  cursor: pointer;
+  transition: transform 0.2s ease, background-color 0.3s ease, border-color 0.3s ease;
+  user-select: none;
+  opacity: 0;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 10;
+}
+
+.arrow-button:hover {
+  background-color: #e0a800; /* warning foncé */
+  border-color: #e0a800;
+  transform: translateY(-50%) scale(1.1);
+}
+
+.arrow-button:active {
+  transform: translateY(-50%) scale(0.95);
+}
+
+/* Position des flèches */
+.left-arrow {
+  left: 10px;
+}
+
+.right-arrow {
+  right: 10px;
+}
+
+.custom-scroll {
+  scrollbar-width: none;       
+  -ms-overflow-style: none;    
+  overflow-x: auto !important; 
+  overflow-y: hidden !important;
+}
+
+.custom-scroll::-webkit-scrollbar {
+  display: none;
+}
+
+.scroll-container div[role="presentation"] {
+  scrollbar-width: none !important;     
+  -ms-overflow-style: none !important;  
+  overflow-x: auto !important;
+  overflow-y: hidden !important;
+}
+
+.scroll-container div[role="presentation"]::-webkit-scrollbar {
+  display: none;
+}
+
+.actor-card:hover {
+  transform: scale(1.05);
+  transition: transform 0.2s ease-in-out;
+  cursor: pointer;
+}
+
+.success-message {
+  background-color: #198754; /* Couleur success Bootstrap */
+  color: white;
+  padding: 0.75rem 1.25rem;
+  margin: 1rem 0;
+  border-radius: 8px;
+  font-weight: 500;
+  box-shadow: 0 0 8px rgba(25, 135, 84, 0.5);
+  animation: fadeInSlide 0.4s ease-out;
+}
+
+/* petite animation pour l'apparition */
+@keyframes fadeInSlide {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
